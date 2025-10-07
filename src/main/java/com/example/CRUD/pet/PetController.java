@@ -78,7 +78,7 @@ public class PetController {
      * @param name The name of the pet
      * @return The list of all pets with the given name
      */
-    @GetMapping("/pets/name")
+    @GetMapping("/pets/search")
     public Object getPetsByName(@RequestParam String name) {
         if (name != null) {
             return petService.getPetsByName(name);
