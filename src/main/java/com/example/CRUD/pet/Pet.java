@@ -71,9 +71,5 @@ public class Pet {
     public void setAwards(String awards) {
         this.awards = awards;
     }
-    public void addAward(String award) {
-        this.awards += (", " + award);
-    }
-
 
 }
