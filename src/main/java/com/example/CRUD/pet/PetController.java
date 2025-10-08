@@ -44,7 +44,7 @@ public class PetController {
      * @return Pet with the given ID after update
      */
     @PutMapping("/pets/{petID}")
-    public Object updatePet(@RequestBody Long petID, Pet pet) {
+    public Object updatePet(@PathVariable Long petID, @RequestBody Pet pet) {
         petService.updatePet(petID, pet);
         return petService.getPetsByID(petID);
     }
@@ -56,7 +56,7 @@ public class PetController {
      * @return List of all pets after deletion
      */
     @DeleteMapping("/pets/{petID}")
-    public Object deletePet(@RequestBody Long petID) {
+    public Object deletePet(@PathVariable Long petID) {
         petService.deletePet(petID);
         return petService.getAllPets();
     }

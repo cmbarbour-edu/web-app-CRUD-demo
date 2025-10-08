@@ -30,6 +30,14 @@ public class Pet {
 
     }
 
+    public Pet(Long petID, String name, String description, String species, String awards) {
+        this.petID = petID;
+        this.name = name;
+        this.description = description;
+        this.species = species;
+        this.awards = awards;
+    }
+
     public Pet(String name, String description, String species, String awards) {
         this.name = name;
         this.description = description;
