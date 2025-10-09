@@ -20,7 +20,7 @@ public class PetController {
      *
      * @return The list of all students
      */
-    @GetMapping("/pets")
+    @GetMapping("/pets/")
     public Object getAllPets() {
         return petService.getAllPets();
     }
@@ -31,7 +31,7 @@ public class PetController {
      * @param pet The pet to be added
      * @return List of all pets after addition
      */
-    @PostMapping("/pets")
+    @PostMapping("/pets/")
     public Object addPet(@RequestBody Pet pet) {
         return petService.addPet(pet);
     }
