@@ -234,4 +234,4 @@ Delete an existing Student.
 ]
 ```
 
-## [Demonstration]  (https://uncg-my.sharepoint.com/:v:/g/personal/cmbarbour_uncg_edu/EcJXuRCvPTFBi21ZyfmWgbYByjXbTxweL04c40QqGDRoJA?e=t4xc78)
+## [Demonstration](https://uncg-my.sharepoint.com/:v:/g/personal/cmbarbour_uncg_edu/EcJXuRCvPTFBi21ZyfmWgbYByjXbTxweL04c40QqGDRoJA?e=t4xc78)
