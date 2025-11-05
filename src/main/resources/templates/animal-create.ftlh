@@ -22,10 +22,8 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-link" href="index.html">Home</a>
-                    <a class="nav-link" href="details.html">Contest Winner</a>
-                    <a class="nav-link" href="about.html">About</a>
-                    <a class="nav-link active" aria-current="page" href="new-animal-form.html">Animal Form</a>                    
+                    <a class="nav-link" href="/pets">Home</a>
+                    <a class="nav-link active" aria-current="page" href="/pets/create">Animal Form</a>                 
                 </div>
             </div>
         </div>

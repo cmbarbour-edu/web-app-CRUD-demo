@@ -1,6 +1,8 @@
 package com.example.CRUD.pet;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,9 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Controller
 public class PetController {
     @Autowired
     private PetService petService;
@@ -18,11 +19,13 @@ public class PetController {
     /**
      * Endpoint to get all pets
      *
-     * @return The list of all students
+     * @return The list of all pets
      */
-    @GetMapping("/pets/")
-    public Object getAllPets() {
-        return petService.getAllPets();
+    @GetMapping("/pets")
+    public Object getAllPets(Model model) {
+        model.addAttribute("petList", petService.getAllPets());
+        model.addAttribute("title", "All pets: ");
+        return "animal-list";
     }
 
     /**
@@ -65,11 +68,13 @@ public class PetController {
      * Endpoint to get a pet by its ID
      *
      * @param petID The ID of the pet
-     * @return The student with the given ID
+     * @return The pet with the given ID
      */
     @GetMapping("/pets/{petID}")
-    public Object getPetsByID(@PathVariable Long petID) {
-        return petService.getPetsByID(petID);
+    public Object getPetsByID(@PathVariable Long petID, Model model) {
+        model.addAttribute("pet", petService.getPetsByID(petID));
+        model.addAttribute("title", "Pet #: " + petID);
+        return "animal-details";
     }
 
     /**
@@ -79,11 +84,17 @@ public class PetController {
      * @return The list of all pets with the given name
      */
     @GetMapping("/pets/search")
-    public Object getPetsByName(@RequestParam String name) {
+    public Object getPetsByName(@RequestParam String name, Model model) {
         if (name != null) {
-            return petService.getPetsByName(name);
+            model.addAttribute("petList", petService.getPetsByName(name));
+            model.addAttribute("title", "Pets containing substring: ");
+            return "pets-list";
         }
-        else return petService.getAllPets();
+        else {
+            model.addAttribute("petList", petService.getAllPets());
+            model.addAttribute("title", "All pets:");
+            return "animal-list";
+        }
     }
 
     /**
@@ -93,11 +104,17 @@ public class PetController {
      * @return The list of all pets with the given species
      */
     @GetMapping("/pets/species/{species}")
-    public Object getPetsBySpecies(@PathVariable String species) {
+    public Object getPetsBySpecies(@PathVariable String species, Model model) {
         if (species != null) {
-            return petService.getPetsBySpecies(species);
+            model.addAttribute("petList", petService.getPetsBySpecies(species));
+            model.addAttribute("title", "Pets by species: ");
+            return "animal-list";
         }
-        else return petService.getAllPets();
+        else {
+            model.addAttribute("petList", petService.getAllPets());
+            model.addAttribute("title", "All pets: ");
+            return "animal-list";
+        }
     }
 
     /**
@@ -107,10 +124,16 @@ public class PetController {
      * @return The list of all pets with the given award
      */
     @GetMapping("/pets/awards")
-    public Object getPetsByAward(@RequestParam String award) {
+    public Object getPetsByAward(@RequestParam String award, Model model) {
         if (award != null) {
-            return petService.getPetsByAward(award);
+            model.addAttribute("petList", petService.getPetsByAward(award));
+            model.addAttribute("title", "Pets by species: ");
+            return "animal-list";
         }
-        else return petService.getAllPets();
+        else {
+            model.addAttribute("petList", petService.getAllPets());
+            model.addAttribute("title", "All pets: ");
+            return "animal-list";
+        }
     }   
 }
