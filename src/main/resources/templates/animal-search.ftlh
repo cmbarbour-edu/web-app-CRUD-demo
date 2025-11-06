@@ -28,7 +28,7 @@
             </div>
         </div>
     </nav>
-    <h1 class="text-center m-3">Available Animals for Adoption</h1>
+    <h1 class="text-center m-3">${title}</h1>
     <h6 class="text-center m-3">Click "Details" to learn more about each animal!</h3>
     <!--search and add animal button-->
     <div class="d-flex gap-2 justify-content-between m-3">

@@ -3,12 +3,9 @@ package com.example.CRUD.pet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -17,9 +14,10 @@ public class PetController {
     private PetService petService;
 
     /**
-     * Endpoint to get all pets
+     * Handles the request to display all pets.
      *
-     * @return The list of all pets
+     * @param model The model to add attributes to for rendering the view.
+     * @return The view name showing the list of all pets.
      */
     @GetMapping("/pets")
     public Object getAllPets(Model model) {
@@ -29,46 +27,77 @@ public class PetController {
     }
 
     /**
-     * Endpoint to add a new pet
+     * Displays the form to create a new pet.
      *
-     * @param pet The pet to be added
-     * @return List of all pets after addition
+     * @param model The model to add attributes to for rendering the form.
+     * @return The view name for creating a new pet.
      */
-    @PostMapping("/pets/")
-    public Object addPet(@RequestBody Pet pet) {
-        return petService.addPet(pet);
+    @GetMapping("/pets/createForm")
+    public Object showCreateForm(Model model) {
+        Pet pet = new Pet();
+        model.addAttribute("pet", pet);
+        model.addAttribute("title", "Create new pet");
+        return "animal-create";
     }
 
     /**
-     * Endpoint to update a pet
+     * Adds a new pet to the system.
      *
-     * @param petID The ID of the pet to be updated
-     * @param pet The pet data to be updated
-     * @return Pet with the given ID after update
+     * @param pet The Pet object containing the data to be saved.
+     * @return Redirect URL to the newly created pet's detail page.
      */
-    @PutMapping("/pets/{petID}")
-    public Object updatePet(@PathVariable Long petID, @RequestBody Pet pet) {
+    @PostMapping("/pets")
+    public Object addPet(Pet pet) {
+        Pet newPet = petService.addPet(pet);
+        return "redirect:/pets/" + newPet.getPetID();
+    }
+
+    /**
+     * Displays the form to update an existing pet.
+     *
+     * @param petID The ID of the pet to update.
+     * @param model The model to add attributes to for rendering the form.
+     * @return The view name for updating the pet.
+     */
+    @GetMapping("/pets/updateForm/{petID}")
+    public Object showUpdateForm(@PathVariable Long petID, Model model) {
+        Pet pet = petService.getPetsByID(petID);
+        model.addAttribute("pet", pet);
+        model.addAttribute("title", "Update pet: " + petID);
+        return "animal-update";
+    }
+
+    /**
+     * Updates an existing pet's information.
+     *
+     * @param petID The ID of the pet to update.
+     * @param pet The Pet object containing updated data.
+     * @return Redirect URL to the updated pet's detail page.
+     */
+    @PostMapping("/pets/update/{petID}")
+    public Object updatePet(@PathVariable Long petID, Pet pet) {
         petService.updatePet(petID, pet);
-        return petService.getPetsByID(petID);
+        return "redirect:/pets/" + petID;
     }
 
     /**
-     * Endpoint to delete a pet by its ID
+     * Deletes a pet by its ID.
      *
-     * @param petID The ID of the pet to be updated
-     * @return List of all pets after deletion
+     * @param petID The ID of the pet to delete.
+     * @return Redirect URL to the list of all pets after deletion.
      */
-    @DeleteMapping("/pets/{petID}")
+    @GetMapping("/pets/delete/{petID}")
     public Object deletePet(@PathVariable Long petID) {
         petService.deletePet(petID);
-        return petService.getAllPets();
+        return "redirect:/pets";
     }
 
     /**
-     * Endpoint to get a pet by its ID
+     * Retrieves a pet by its ID.
      *
-     * @param petID The ID of the pet
-     * @return The pet with the given ID
+     * @param petID The ID of the pet to retrieve.
+     * @param model The model to add attributes to for rendering the view.
+     * @return The view name showing the pet's details.
      */
     @GetMapping("/pets/{petID}")
     public Object getPetsByID(@PathVariable Long petID, Model model) {
@@ -78,17 +107,18 @@ public class PetController {
     }
 
     /**
-     * Endpoint to get a pet by its name
+     * Searches for pets by name.
      *
-     * @param name The name of the pet
-     * @return The list of all pets with the given name
+     * @param name The name or substring to search for.
+     * @param model The model to add attributes to for rendering the view.
+     * @return The view name showing the search results or all pets if name is null.
      */
     @GetMapping("/pets/search")
     public Object getPetsByName(@RequestParam String name, Model model) {
         if (name != null) {
             model.addAttribute("petList", petService.getPetsByName(name));
-            model.addAttribute("title", "Pets containing substring: ");
-            return "pets-list";
+            model.addAttribute("title", "Pets containing substring " + name);
+            return "animal-search";
         }
         else {
             model.addAttribute("petList", petService.getAllPets());
@@ -98,17 +128,18 @@ public class PetController {
     }
 
     /**
-     * Endpoint to get a pet by its species
+     * Retrieves pets by their species.
      *
-     * @param species The species of the pet
-     * @return The list of all pets with the given species
+     * @param species The species to filter by.
+     * @param model The model to add attributes to for rendering the view.
+     * @return The view name showing pets of the given species, or all pets if species is null.
      */
     @GetMapping("/pets/species/{species}")
     public Object getPetsBySpecies(@PathVariable String species, Model model) {
         if (species != null) {
             model.addAttribute("petList", petService.getPetsBySpecies(species));
             model.addAttribute("title", "Pets by species: ");
-            return "animal-list";
+            return "animal-species";
         }
         else {
             model.addAttribute("petList", petService.getAllPets());
@@ -118,16 +149,17 @@ public class PetController {
     }
 
     /**
-     * Endpoint to get a pet by its awards
+     * Retrieves pets by a specific award.
      *
-     * @param award The award of the pet
-     * @return The list of all pets with the given award
+     * @param award The award to filter by.
+     * @param model The model to add attributes to for rendering the view.
+     * @return The view name showing pets with the given award, or all pets if award is null.
      */
     @GetMapping("/pets/awards")
     public Object getPetsByAward(@RequestParam String award, Model model) {
         if (award != null) {
             model.addAttribute("petList", petService.getPetsByAward(award));
-            model.addAttribute("title", "Pets by species: ");
+            model.addAttribute("title", "Pets with award: " + award);
             return "animal-list";
         }
         else {

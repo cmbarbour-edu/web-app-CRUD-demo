@@ -24,7 +24,7 @@ public class PetService {
      * @param petID ID of the pet
      * @return The pet with the given ID
      */
-    public Object getPetsByID(@PathVariable Long ID) {
+    public Pet getPetsByID(@PathVariable Long ID) {
         return petRepository.findById(ID).orElse(null);
     }
 

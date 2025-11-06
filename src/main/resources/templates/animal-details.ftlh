@@ -16,14 +16,14 @@
     <!--navbar-->
     <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.html">Stocked Animal Adoptions</a>
+            <a class="navbar-brand" href="/pets">Stocked Animal Adoptions</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <a class="nav-link" href="/pets">Home</a>
-                    <a class="nav-link" href="/pets/create">Animal Form</a>               
+                    <a class="nav-link" href="/pets/createForm">Animal Form</a>               
                 </div>
             </div>
         </div>
@@ -35,12 +35,13 @@
         <img src="https://static.wixstatic.com/media/0ad4a1_fac5b71cb1ec4910b6d3f401b7569528~mv2.jpeg/v1/fill/w_1405,h_849,al_c/0ad4a1_fac5b71cb1ec4910b6d3f401b7569528~mv2.jpeg" class="rounded card-img-top" alt="..." style="max-width: 100%; height: auto;">
         <div class="card-body">
             <h3>Species:</h3>
-            <p class="card-text"> ${pet.species} </p>
+            <a href="/pets/species/${pet.species}">${pet.species}</a>
             <h3>Details:</h3>
             <p class="card-text"> ${pet.description} </p>
             <h3>Awards:</h3>
             <p class="card-text"> ${pet.awards} </p>
             <a href="/pets" class="btn btn-primary">Back</a>
+            <a href="/pets/updateForm/${pet.petID}" class="btn btn-primary" >Edit</a>
         </div>
     </div>
 </body>

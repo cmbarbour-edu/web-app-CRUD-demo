@@ -16,38 +16,30 @@
     <!--navbar-->
     <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.html">Stocked Animal Adoptions</a>
+            <a class="navbar-brand" href="/pets">Stocked Animal Adoptions</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <a class="nav-link" href="/pets">Home</a>
-                    <a class="nav-link" href="/pets/create">Animal Form</a>                
+                    <a class="nav-link" href="/pets/createForm">Animal Form</a>                
                 </div>
             </div>
         </div>
     </nav>
     <!--Update animal form-->
     <h1 class="text-center m-3">Update an Animal</h1>
-    <form style="max-width: 600px; margin: auto;">
-        <!--Prepopulate with pet's data-->
-        <div class="mb-3">
-            <label for="animalName" class="form-label">Animal Name</label>
-            <input type="text" class="form-control" id="animalName">
-        </div>
-        <div class="mb-3">
-            <label for="animalType" class="form-label">Animal Type</label>
-            <input type="text" class="form-control" id="animalType">
-        </div>
-        <div class="mb-3">
-            <label for="animalDescription" class="form-label">Animal Description</label>
-            <textarea class="form-control" id="animalDescription" rows="3"></textarea>
-        </div>
-        <div class="mb-3">
-            <label for="animalImage" class="form-label">Animal Image URL</label>
-            <input type="text" class="form-control" id="animalImage">
-        </div>
+    <h1>${title}</h1>
+    <form id="new-pet" action="/pets/update/${pet.petID}" method="post">
+        <input type="number" id="petID" name="petID" value="${pet.petID}" readonly/>
+        <input type="text" id="name" name="name" value="${pet.name}" placeholder="Name" required/>
+        <input type="text" id="species" name="species" value="${pet.species}" placeholder="Species" required/>
+        <input type="text" id="description" name="description" value="${pet.description}" placeholder="Short description" required/>
+        <input type="text" id="awards" name="awards" value="${pet.awards}" placeholder="Awards"/>
         <button type="submit" class="btn btn-primary">Submit</button>
+        <a href="/pets" class="btn btn-outline-danger" >Cancel</a>
+        <a href="/pets/delete/${pet.petID?c}" class="btn btn-danger">Delete</a>
+    </form>
 </body>
 </html>
