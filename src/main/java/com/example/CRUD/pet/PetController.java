@@ -115,7 +115,7 @@ public class PetController {
      */
     @GetMapping("/pets/search")
     public Object getPetsByName(@RequestParam String name, Model model) {
-        if (name != null) {
+        if (name != null && name !="") {
             model.addAttribute("petList", petService.getPetsByName(name));
             model.addAttribute("title", "Pets containing substring " + name);
             return "animal-search";
