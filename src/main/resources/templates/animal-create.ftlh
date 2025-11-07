@@ -33,8 +33,8 @@
     <h1>${title}</h1>
     <form id="new-pet" action="/pets" method="post">
         <input type="text" id="name" name="name" placeholder="Name" required/>
-        <input type="text" id="description" name="description" placeholder="Short description" required/>
         <input type="text" id="species" name="species" placeholder="Species" required/>
+        <input type="text" id="description" name="description" placeholder="Short description" required/>
         <input type="text" id="awards" name="awards" placeholder="Awards"/>
         <button type="submit" class="btn btn-primary">Submit</button>
         <a href="/pets" class="btn btn-outline-danger" >Cancel</a>
